@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة المشتريات | Aura Pieces</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #FAFAFA;
+            color: #1C1C1C;
+            margin: 0;
+            padding: 20px;
+        }
+        .cart-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #FFFFFF;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        h2 {
+            border-bottom: 1px solid #EEEEEE;
+            padding-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+        .total-section {
+            margin-top: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .whatsapp-btn {
+            display: block;
+            width: 100%;
+            background-color: #D4AF37;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 25px;
+            transition: background 0.3s ease;
+        }
+        .whatsapp-btn:hover {
+            background-color: #BCA02E;
+        }
+    </style>
+</head>
+<body>
+
+<div class="cart-container">
+    <h2>🛍️ سلة المشتريات - Aura Pieces</h2>
+    
+    <div id="cart-items-list">
+        <div class="cart-item" data-name="قلادة لونا الذهبية" data-price="450">
+            <span>قلادة "لونا" الذهبية (عدد 1)</span>
+            <strong>450 ج.م</strong>
+        </div>
+        <div class="cart-item" data-name="أقراط ستيلار اللامعة" data-price="300">
+            <span>أقراط "ستيلار" اللامعة (عدد 1)</span>
+            <strong>300 ج.م</strong>
+        </div>
+    </div>
+
+    <div class="total-section">
+        <span>الإجمالي:</span>
+        <span id="total-price">750 ج.م</span>
+    </div>
+
+    <button class="whatsapp-btn" onclick="sendToWhatsApp()">إتمام الطلب عبر WhatsApp ✨</button>
+</div>
+
+<script>
+function sendToWhatsApp() {
+    const phoneNumber = "201143730448"; 
+
+    const items = document.querySelectorAll('.cart-item');
+    let itemsText = "";
+    let total = 0;
+
+    items.forEach(item => {
+        const name = item.getAttribute('data-name');
+        const price = parseInt(item.getAttribute('data-price'));
+        itemsText += `- 1× ${name} (${price} ج.م)\n`;
+        total += price;
+    });
+
+    let message = `مرحباً Aura Pieces، أريد إتمام طلب جديد من الموقع المحترف ✨:\n\n`;
+    message += `🛒 تفاصيل السلة:\n${itemsText}\n`;
+    message += `💰 الإجمالي: ${total} ج.م\n\n`;
+    message += `📍 بيانات الشحن المطلوبة:\n`;
+    message += `- الاسم الثنائي:\n`;
+    message += `- رقم الهاتف البديل:\n`;
+    message += `- المحافظة والعنوان بالتفصيل:\n\n`;
+    message += `(الرجاء تأكيد الطلب وتحديد موعد التوصيل 🚚)`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+}
+</script>
+
+</body>
+</html>
